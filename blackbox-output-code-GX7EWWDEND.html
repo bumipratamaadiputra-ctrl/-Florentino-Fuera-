@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Florentino OUT - Real Madrid Petition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #0a0a0a;
+            --red: #c8102e;
+            --red-glow: #ff1744;
+            --dark-red: #8b0000;
+            --white: #ffffff;
+            --gray: #444;
+        }
+
+        body {
+            font-family: 'Oswald', sans-serif;
+            background: radial-gradient(circle at center, #1a0000 0%, var(--black) 70%);
+            color: var(--white);
+            overflow-x: hidden;
+        }
+
+        /* Particles */
+        #particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--red-glow);
+            border-radius: 50%;
+            animation: float 8s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-20vh) scale(1); opacity: 0; }
+        }
+
+        /* Language Switcher */
+        .lang-switch {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1001;
+            display: flex;
+            gap: 8px;
+        }
+
+        .lang-btn {
+            padding: 10px 18px;
+            background: rgba(200, 16, 46, 0.9);
+            color: white;
+            border: 2px solid var(--red);
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 14px;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .lang-btn.active, .lang-btn:hover {
+            background: var(--red-glow);
+            box-shadow: 0 0 15px var(--red-glow);
+            transform: scale(1.05);
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 100px 20px 50px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .main-title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(3.5rem, 9vw, 9rem);
+            background: linear-gradient(45deg, var(--red), var(--red-glow), #ff5722);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 20px var(--red-glow));
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 20px var(--red)); }
+            to { filter: drop-shadow(0 0 30px var(--red-glow)); }
+        }
+
+        .subtitle {
+            font-size: clamp(1.3rem, 3.5vw, 2.2rem);
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 40px;
+            letter-spacing: 2px;
+            font-weight: 400;
+        }
+
+        /* Perez Photo */
+        .perez-container {
+            display: flex;
+            justify-content: center;
+            margin: 40px 0;
+        }
+
+        .perez-frame {
+            position: relative;
+            width: 260px;
+            height: 320px;
+        }
+
+        .perez-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+            border: 5px solid var(--red);
+            box-shadow: 0 0 40px rgba(200,16,46,0.6);
+            transition: all 0.4s ease;
+        }
+
+        .perez-frame:hover img {
+            transform: scale(1.03);
+            box-shadow: 0 0 60px rgba(200,16,46,0.8);
+        }
+
+        .out-stamp {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            background: linear-gradient(45deg, var(--red-glow), var(--red));
+            color: var(--black);
+            padding: 15px 25px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            transform: rotate(15deg);
+            letter-spacing: 3px;
+            border: 3px solid var(--black);
+            box-shadow: 0 8px 25px rgba(200,16,46,0.6);
+        }
+
+        /* Counter */
+        .counter-section {
+            background: rgba(10,10,10,0.95);
+            backdrop-filter: blur(20px);
+            border: 2px solid var(--red);
+            border-radius: 25px;
+            margin: 40px auto;
+            max-width: 650px;
+            padding: 50px 30px;
+            text-align: center;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.8);
+        }
+
+        .counter-label {
+            font-size: 1.3rem;
+            color: var(--red-glow);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        #signatureCount {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(4.5rem, 16vw, 12rem);
+            font-weight: 900;
+            background: linear-gradient(90deg, var(--red-glow), #ffeb3b, var(--red));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 25px 0;
+            animation: countPulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes countPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Form Section */
+        .form-section {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 45px 35px;
+            background: rgba(15,15,15,0.95);
+            border: 3px solid var(--red);
+            border-radius: 25px;
+            box-shadow: 0 30px 70px rgba(200,16,46,0.3);
+            backdrop-filter: blur(15px);
+        }
+
+        .form-title {
+            text-align: center;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.8rem;
+            color: var(--red-glow);
+            margin-bottom: 35px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+        }
+
+        .form-group {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .form-group label {
+            position: absolute;
+            top: 18px;
+            left: 22px;
+            color: rgba(200,16,46,0.9);
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 22px 22px 12px;
+            background: rgba(255,255,255,0.06);
+            border: 2px solid rgba(200,16,46,0.4);
+            border-radius: 15px;
+            color: white;
+            font-size: 1.1rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: transparent;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--red-glow);
+            background: rgba(255,255,255,0.1);
+            box-shadow: 0 0 20px rgba(200,16,46,0.3);
+        }
+
+        .form-group input:focus + label,
+        .form-group input:not(:placeholder-shown) + label,
+        .form-group textarea:focus + label,
+        .form-group textarea:not(:placeholder-shown) + label {
+            top: -8px;
+            left: 18px;
+            font-size: 0.75rem;
+            background: var(--black);
+            padding: 4px 12px;
+            border-radius: 8px;
+            color: var(--red-glow) !important;
+        }
+
+        .sign-button {
+            width: 100%;
+            padding: 22px;
+            background: linear-gradient(45deg, var(--red), var(--red-glow));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        .sign-button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 45px rgba(200,16,46,0.5);
+        }
+
+        .sign-button:active {
+            transform: translateY(-1px);
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            background: linear-gradient(45deg, #00ff88, #4caf50);
+            color: var(--black);
+            padding: 20px;
+            border-radius: 18px;
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            animation: bounceIn 0.6s ease;
+            box-shadow: 0 10px 30px rgba(0,255,136,0.4);
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Signers List */
+        .signers-section {
+            max-width: 850px;
+            margin: 60px auto;
+            padding: 40px;
+        }
+
+        .signers-title {
+            text-align: center;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.8rem;
+            color: var(--red-glow);
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+        }
+
+        .signer-item {
+            background: rgba(255,255,255,0.05);
+            padding: 25px 30px;
+            margin: 18px 0;
+            border-radius: 20px;
+            border-left: 5px solid var(--red);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: slideInRight 0.5s ease-out;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .signer-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(200,16,46,0.2);
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero { padding: 80px 20px 40px; }
+            .form-section { margin: 40px 20px; padding: 40px 25px; }
+            .perez-frame { width: 220px; height: 280px; }
+            .signers-section { padding: 20px; }
+            .signer-item { flex-direction: column; text-align: center; gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Particles -->
+    <div id="particles"></div>
+
+    <!-- Language Switcher -->
+    <div class="lang-switch">
+        <button class="lang-btn active" onclick="setLanguage('en')">EN</button>
+        <button class="lang-btn" onclick="setLanguage('es')">ES</button>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1 class="main-title" data-en="FLORIENTINO OUT" data-es="FLORIENTINO FUERA">FLORIENTINO OUT</h1>
+        <p class="subtitle" data-en="Real Madrid needs new leadership" data-es="Real Madrid necesita nuevo liderazgo">Real Madrid needs new leadership</p>
+        
+        <div class="perez-container">
+            <div class="perez-frame">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Florentino_P%C3%A9rez_2021_%28cropped%29.jpg/800px-Florentino_P%C3%A9rez_2021_%28cropped%29.jpg" alt="Florentino Pérez" loading="lazy">
+                <div class="out-stamp" data-en="OUT!" data-es="¡FUERA!">OUT!</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Signature Counter -->
+    <section class="counter-section">
+        <div class="counter-label" data-en="Global Signatures" data-es="Firmas Globales">Global Signatures</div>
+        <div id="signatureCount">0</div>
+        <p data-en="Join fans worldwide - Hala Madrid!" data-es="Únete a fans de todo el mundo - Hala Madrid!">Join fans worldwide - Hala Madrid!</p>
+    </section>
+
+    <!-- Petition Form -->
+    <section class="form-section">
+        <h2 class="form-title" data-en="Sign the Petition" data-es="Firma la Petición">Sign the Petition</h2>
+        
+        <div class="success-message" id="successMessage">
+            <i class="fas fa-check-circle" style="font-size: 1.8rem; margin-right: 12px;"></i>
+            <span id="successText"></span>
+        </div>
+        
+        <form id="petitionForm">
+            <div class="form-group">
+                <input type="text" id="fullName" placeholder=" " required>
+                <label data-en="Full Name" data-es="Nombre Completo">Full Name</label>
+            </div>
+            
+            <div class="form-group">
+                <input type="text" id="country" placeholder=" " required>
+                <label data-en="Country / City" data-es="País / Ciudad">Country / City</label>
+            </div>
+            
+            <div class="form-group">
+                <textarea id="message" placeholder=" " rows="3" maxlength="200"></textarea>
+                <label data-en="Your Message (Optional)" data-es="Tu Mensaje (Opcional)">Your Message (Optional)</label>
+            </div>
+            
+            <button type="submit" class="sign-button" id="signBtn">
+                <span data-en="SIGN NOW!" data-es="¡FIRMA YA!">SIGN NOW!</span>
+            </button>
+        </form>
+    </section>
+
+    <!-- Recent Signers -->
+    <section class="signers-section" id="signersSection">
+        <h2 class="signers-title" data-en="Recent Signatures" data-es="Firmas Recientes">Recent Signatures</h2>
+    </section>
+
+    <script>
+        // Global variables
+        let signatureCount = parseInt(localStorage.getItem('signatureCount')) || 0;
+        let recentSigners = JSON.parse(localStorage.getItem('recentSigners')) || [];
+        let currentLang = 'en';
+
+        // Language function
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            updateAllTexts();
+        }
+
+        function updateAllTexts() {
+            document.querySelectorAll('[data-en]').forEach(element => {
+                element.textContent = element.getAttribute(`data-${currentLang}`);
+            });
+        }
+
+        // Create particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 40; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 8 + 's';
+                particle.style.animationDuration = (Math.random() * 4 + 6) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Update counter display
+        function updateCounter() {
+            document.getElementById('signatureCount').textContent = signatureCount.toLocaleString();
+        }
+
+        // Update recent signers list
+        function updateSignersList() {
+            const container = document.getElementById('signersSection');
+            let signersHTML = `<h2 class="signers-title" data-en="Recent Signatures" data-es="Firmas Recientes">${currentLang === 'en' ? 'Recent Signatures' : 'Firmas Recientes'}</h2>`;
+            
+            recentSigners.slice(0, 15).forEach((signer, index) => {
+                signersHTML += `
+                    <div class="signer-item">
+                        <div>
+                            <strong style="color: var(--red-glow);">${signer.name}</strong>
+                            <span style="color: var(--red); margin-left: 15px; font-size: 1.1rem;">${signer.country}</span>
+                        </div>
+                        <small style="opacity: 0.7; font-size: 0.9rem;">#${(recentSigners.length - index).toString().padStart(3, '0')}</small>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = signersHTML;
+        }
+
+        // Show success message
+        function showSuccess() {
+            const successMsg = document.getElementById('successMessage');
+            const successText = document.getElementById('successText');
+            successText.textContent = currentLang === 'en' ? 
+                '✅ Signature added! Thank you! Hala Madrid!' : 
+                '✅ ¡Firma añadida! ¡Gracias! Hala Madrid!';
+            
+            successMsg.style.display = 'block';
+            setTimeout(() => {
+                successMsg.style.display = 'none';
+            }, 4000);
+        }
+
+        // Form submission handler
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('petitionForm');
+            
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const name = document.getElementById('fullName').value.trim();
+                const country = document.getElementById('country').value.trim();
+                
+                if (name && country) {
+                    // Add new signer
+                    const newSigner = {
+                        name: name,
+                        country: country,
+                        id: Date.now()
+                    };
+                    
+                    recentSigners.unshift(newSigner);
+                    if (recentSigners.length > 30) {
+                        recentSigners = recentSigners.slice(0, 30);
+                    }
+                    
+                    // Update count
+                    signatureCount++;
+                    
+                    // Save to localStorage
+                    localStorage.setItem('signatureCount', signatureCount);
+                    localStorage.setItem('recentSigners', JSON.stringify(recentSigners));
+                    
+                    // Update UI
+                    updateCounter();
+                    updateSignersList();
+                    showSuccess();
+                    
+                    // Reset form
+                    form.reset();
+                } else {
+                    alert(currentLang === 'en' ? 'Please fill name and country!' : '¡Por favor completa nombre y país!');
+                }
+            });
+        });
+
+        // Initialize everything
+        createParticles();
+        updateCounter();
+        updateSignersList();
+        updateAllTexts();
+    </script>
+</body>
+</html>
